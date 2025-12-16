@@ -1,15 +1,11 @@
-import { useState } from 'react';
 import './ChatEntry.css';
 import TimeStamp from './TimeStamp';
 import PropTypes from 'prop-types';
 
 const ChatEntry = ({id, sender, body, timeStamp, liked, onToggleLike}) => {
-  const [isLiked, setIsLiked] = useState(liked);
-  const likedToggle = isLiked ? '❤️' : '🤍';
-  const toggleLike = (event) => {
-    setIsLiked(!isLiked);
-    onToggleLike();
-  }
+
+  const likedToggle = liked ? '❤️' : '🤍';
+
   return (
     // Replace the outer tag name with a semantic element that fits our use case
     <article className="chat-entry local">
@@ -19,7 +15,7 @@ const ChatEntry = ({id, sender, body, timeStamp, liked, onToggleLike}) => {
         <p className="entry-time"><TimeStamp time={timeStamp}></TimeStamp></p>
         <button
           className="like"
-          onClick={toggleLike}
+          onClick={() => onToggleLike(id)}
         >
           {likedToggle}
         </button>
@@ -29,7 +25,6 @@ const ChatEntry = ({id, sender, body, timeStamp, liked, onToggleLike}) => {
 };
 
 ChatEntry.propTypes = {
-  // Fill with correct proptypes
   id: PropTypes.number,
   sender: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
